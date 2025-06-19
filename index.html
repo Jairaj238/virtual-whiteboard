@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale-1.0">
+	<title>Virtual-Whiteboard</title>
+
+	<!-- Font awesome CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" href="./assets/css/style.css">
+	<link rel="stylesheet" href="./assets/css/overdiv.css">
+	<link rel="stylesheet" href="./assets/css/sidebar.css">
+	<link rel="stylesheet" href="./assets/css/pagePropagate.css">
+
+</head>
+<body>
+
+	<div class="container">
+		<!-- Tools Section -->
+			<div class="tools-bar">
+				<button class="open-tools" title="Tools">
+					<img src="./assets/images/menu.png" class="open">
+					<img src="./assets/images/exit.png" class="close">
+				</button>
+
+				<div class="tools">
+					<button class="tool-btn pen" id="pen" title="pen">
+						<span><img src="./assets/images/pen.png"></span>
+						<i class="fa fa-angle-up"></i>
+					</button>
+					<div id="pen-dropdown" class="dropdown">
+						<div class="dropdown-items">
+							<input type="range" id="pen-width" min="1" max="100" step="1" value="3">
+							<span id="pen-width-value" style="display: none;">3</span>
+						</div>
+						<div class="dropdown-items">
+							<button class="color-swatch selected-color" style="background: #000000;"
+								data-color="#000000"></button>
+							<button class="color-swatch" style="background: #FF0000;" data-color="#FF0000"></button>
+							<button class="color-swatch" style="background: #00FF00;" data-color="#00FF00"></button>
+							<button class="color-swatch" style="background: #0000FF;" data-color="#0000FF"></button>
+							<button class="color-swatch" style="background: #FFFFFF;" data-color="#FFFFFF"></button>
+							<button class="color-swatch" style="background: #FFF000;" data-color="#FFF000"></button>
+							<button class="color-swatch" style="background: #00FFFF;" data-color="#00FFFF"></button>
+						</div>
+
+						<div class="dropdown-items-btn">
+							<button class="other-tools" id="pen"><i class="fa-solid fa-pencil"></i>pen</button>
+							<button class="other-tools" id="pointer"><i class="fa-solid fa-pointer"></i>pointer</button>
+							<button class="other-tools" id="highlighter"><i class="fa-solid fa-highlighter"></i>highlighter</button>
+							<button class="other-tools" id="eraser"><i class="fa-solid fa-eraser"></i>Eraser</button>
+							<button class="other-tools" id="trash"><i class="fa-solid fa-trash"></i>Erase All</button>
+						</div>
+					</div>
+					
+					<!-- <button class="tool-btn eraser" id="eraser" title="Eraser">
+						<span><img src="./assets/images/eraser.jpg"></span>
+					</button> -->
+
+					<!-- <button class="tool-btn erase_all" id="erase_all" title="Erase All">
+						<span><img src="./assets/images/eraser_all.png"></span>
+					</button> -->
+
+					<button class="tool-btn screen_share" id="screen_share">
+						<span><img src="./assets/images/screen share.png"></span>
+					</button>
+
+					<button class="tool-btn live-chat" id="live-chat" title="Live Chat">
+						<span><img src="./assets/images/messages.png"></span>
+					</button>
+
+					<button class="tool-btn shape" title="Shapes">
+						<span><img src="./assets/images/shapes.png"></span>
+					</button>
+
+					<div class="dropdown shapes" id="shape-dropdown">
+						<div class="dropdown-items">
+							<button id="rectangle" class="shapeBtn selected-shape" title="Rectangle"><img src="./assets/images/shapes/rectangle.png"></button>
+							<button id="circle" class="shapeBtn" title="Circle"><img src="./assets/images/shapes/circle.png"></button>
+							<button id="line" class="shapeBtn" title="Line"><img src="./assets/images/shapes/line.png"></button>
+							<button id="triangle" class="shapeBtn" title="Triangle"><img src="./assets/images/shapes/triangle.png"></button>
+						</div>
+
+						<div class="dropdown-items fill-color">
+							<input type="checkbox" id="fillColor">
+							<label for="fillColor">Fill Color</label>
+						</div>
+					</div>
+
+					<button class="tool-btn undo" id="undo" title="Undo">
+						<span><img src="./assets/images/undo.png"></span>
+					</button>
+
+					<button class="tool-btn redo" id="redo" title="Redo">
+						<span style="transform: scaleX(-1);"><img src="./assets/images/undo.png"></span>
+					</button>
+
+					<button class="dual-tool-btn" id="camera-toggle" title="Camera">
+						<img src="./assets/images/camera.png" class="camera-on">
+						<img src="./assets/images/camera-off.png" class="camera-off">
+					</button>
+
+					<button class="dual-tool-btn" id="mic-toggle" onclick="toggleMic()">
+						<img src="./assets/images/mute.png" class="mic-on" title="Mute">
+						<img src="./assets/images/unmute.png" class="mic-off" title="Unmute">
+					</button>
+
+					<button class="dual-tool-btn" id="screen-toggle">
+						<img src="./assets/images/fullscreen.png" class="screen-max" title="Full screen">
+						<img src="./assets/images/shortscreen.png" class="screen-min" title="Exit full screen">
+					</button>
+
+					<button class="tool-btn settings" id="settings" title="Settings">
+						<span><img src="./assets/images/setting.png"></span>
+					</button>
+				</div>
+			</div>
+		<!-- Main content -->
+			<div class="main-area">
+				<!-- Content Section -->
+					<div class="content-section" id="content-area">
+						<canvas id="whiteboard"></canvas>
+					</div>
+					
+					<div class="chat-section">
+						<div class="chat-box-btn">
+							<button class="chat-btn" title="Mute Chat">
+								<img src="./assets/images/mute-chat.png">
+							</button>
+						</div>
+						
+						<button id="scroll-to-latest" class="chatArrow" title="scroll to latest"><i class="fa fa-arrow-down"></i></button>
+						<div id="student-message">
+						</div>
+						<div class="send-msg-box">
+							<textarea placeholder="Text your message..." id="tutor-message"></textarea>
+							<button class="chat-btn" title="Send message">
+								<img src="./assets/images/send.png">
+							</button>
+						</div>
+					</div> 
+			</div>
+
+			<div class="camera-control" id="camera-control">
+				<div class="webcam-icon" id="webcam">
+					<video id="webcam-video" autoplay muted></video>
+				</div>
+			</div>
+	</div>
+
+	<div class="overdiv">
+		<div class="popup alert">
+			<img src="./assets/images/alert.gif" alt="Alert">
+			<p>Do you really want to erase all ?</p>
+			<div class="overBtns">
+				<button id="yesBtn">Yes</button>
+				<button id="noBtn">No</button>
+			</div>
+
+		</div>	
+	</div>
+
+	<div class="sidebar" id="settings-sidebar">
+		<div class="sidebar-header">
+			<h2>Settings</h2>
+			<button id="close-header" class="close-btn"><i class="fa fa-times"></i></button>
+		</div>
+
+		<ul class="sidebar-content">
+			<li>
+				<div class="default-board-bg">
+					<button class="whiteboard-bg" style="background: #FFFFFF;" data-color="#FFFFFF;"></button>
+					<button class="whiteboard-bg" style="background: #E6E6E6;" data-color="#E6E6E6;"></button>
+					<button class="whiteboard-bg" style="background: #ADD8E6;" data-color="#ADD8E6;"></button>
+					<button class="whiteboard-bg" style="background: #FFD700;" data-color="#FFD700;"></button>
+					<button class="whiteboard-bg" style="background: #FF6347;" data-color="#FF6347;"></button>
+					<button class="whiteboard-bg" style="background: #A9A9A9;" data-color="#A9A9A9;"></button>
+					<button class="whiteboard-bg" style="background: #98FB98;" data-color="#98FB98;"></button>
+					<button class="whiteboard-bg" style="background: #000000;" data-color="#000000;"></button>
+				</div>
+				<div class="custom-board-bg">
+					<label for="custom-bg-color">custom Color:</label>
+					<input type="color" id="custom-bg-color" title="Choose your color">
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="page-propagation">
+		<button class="propagateBtn" id="add-page" title="Add new page"><img src="./assets/images/plus.png"></button>
+		<div class="pages">1</div>
+		<button class="propagateBtn" id="prev-page" title="Previous page"><img src="./assets/images/left-arrow.png"></button>
+		<button class="propagateBtn" id="next-page" title="Next page"><img src="./assets/images/right-arrow.png"></button>
+	</div>
+
+	<script src="./assets/js/script.js"></script>
+	<script src="./assets/js/functions.js"></script>
+	<script src="./assets/js/screenShare.js"></script>
+	<script src="./assets/js/screenSize.js"></script>
+	<script src="./assets/js/chatBox.js"></script>
+	<script src="./assets/js/pagePropagetion.js"></script>
+	<script src="./assets/js/mic.js"></script>
+	<script src="./assets/js/cameraControl.js"></script>
+</body>
+</html>

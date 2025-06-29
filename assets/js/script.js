@@ -177,3 +177,54 @@ document.addEventListener('click', (e) => {
         shapeDrop.style.display = 'none';
     }
 });
+
+let chatIsRecording = false;
+let chatMediaRecorder;
+let chatAudioChunks = [];
+
+const chatRecordBtn = document.getElementById('chat-record-btn');
+const chatMessages = document.getElementById('student-message');
+
+chatRecordBtn.addEventListener("click", async () => {
+  if (!chatIsRecording) {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    chatMediaRecorder = new MediaRecorder(stream);
+    chatAudioChunks = [];
+
+    chatMediaRecorder.ondataavailable = (event) => {
+      chatAudioChunks.push(event.data);
+    };
+
+    chatMediaRecorder.onstop = () => {
+      const blob = new Blob(chatAudioChunks, { type: 'audio/webm' });
+      const url = URL.createObjectURL(blob);
+      const audio = document.createElement('audio');
+      audio.src = url;
+      audio.controls = true;
+
+      const bubble = document.createElement('div');
+      bubble.appendChild(audio);
+      chatMessages.appendChild(bubble);
+
+      // Show mic icon again
+      chatRecordBtn.innerHTML = '<i class="bi bi-mic-fill"></i>';
+      chatIsRecording = false;
+    };
+
+    chatMediaRecorder.start();
+    chatIsRecording = true;
+    chatRecordBtn.innerHTML = '<i class="bi bi-stop-circle-fill text-danger"></i>';
+  } else {
+    chatMediaRecorder.stop();
+  }
+});
+
+document.getElementById('download-btn').addEventListener('click', () => {
+    const dataURL = canvas.toDataURL("image/png");           // Convert canvas content to image data URL
+    const a = document.createElement("a");                   // Create a temporary anchor (<a>) tag
+    a.href = dataURL;                                        // Set image data as href
+    a.download = "whiteboard_drawing.png";                   // Set default filename
+    a.click();                                               // Simulate a click to trigger download
+});
+
+document.body.classList.toggle('dark-mode');

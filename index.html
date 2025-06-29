@@ -23,6 +23,8 @@
 					<img src="./assets/images/exit.png" class="close">
 				</button>
 
+
+
 				<div class="tools">
 					<button class="tool-btn pen" id="pen" title="pen">
 						<span><img src="./assets/images/pen.png"></span>
@@ -113,6 +115,10 @@
 					<button class="tool-btn settings" id="settings" title="Settings">
 						<span><img src="./assets/images/setting.png"></span>
 					</button>
+					
+					<button class="tool-btn download" title="Download" id="download-btn">
+  						<i class="bi bi-download"></i>
+					</button>
 				</div>
 			</div>
 		<!-- Main content -->
@@ -120,6 +126,10 @@
 				<!-- Content Section -->
 					<div class="content-section" id="content-area">
 						<canvas id="whiteboard"></canvas>
+					</div>
+					
+					<div id="whiteboard-header">
+  						WHITEBOARD
 					</div>
 					
 					<div class="chat-section">
@@ -137,6 +147,13 @@
 							<button class="chat-btn" title="Send message">
 								<img src="./assets/images/send.png">
 							</button>
+							<button id="chat-record-btn" title="Record Voice Message">
+  								<i class="bi bi-mic-fill"></i>
+							</button>
+							
+							<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+							<div id="chat-messages"></div> <!-- Where recorded audio will show -->
 						</div>
 					</div> 
 			</div>

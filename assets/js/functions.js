@@ -133,10 +133,10 @@ const drawing = (e) => {
     }else if(selectedTool === "highlighter"){
          ctx.globalCompositeOperation = "multiply";
          ctx.lineTo(e.offsetX, e.offsetY);
-         ctx.globalAlpha =0.13;
+         ctx.globalAlpha = 0.13;
          ctx.strokeStyle = selectedColor;
          ctx.lineWidth = 25;
-         ctx.stroke();    
+         ctx.stroke();
     }else if(selectedTool === "rectangle"){
         drawRect(e);
     }else if(selectedTool === "circle"){
@@ -186,22 +186,35 @@ noBtn.addEventListener("click", () => {
 highlighterBtn.addEventListener("click", () => {
     isDrawing = false;
     selectedTool = "highlighter";
-     ctx.globalCompositeOperation = "multiply";
-     ctx.lineTo(e.offsetX, e.offsetY);
-     ctx.globalAlpha =0.13;
-     ctx.strokeStyle = selectedColor;
-     ctx.lineWidth = 25;
+    ctx.globalCompositeOperation = "multiply";
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.globalAlpha = 0.13;
+    ctx.strokeStyle = selectedColor;
+    ctx.lineWidth = 25;
 });
 
 pointerBtn.addEventListener("click", () => {
     isDrawing = false;
     selectedTool = "pointer";
-})
+    ctx.globalAlpha = 1.0;
+    ctx.globalCompositeOperation = "source-over";
+});
+
 eraserBtn.addEventListener("click", () => {
     isDrawing = false;
     selectedTool = "eraser";
+    ctx.globalAlpha = 1.0;
     ctx.globalCompositeOperation = "destination-out";
+    ctx.lineWidth = penWidth
 });
+
+function resetCtx() {
+    ctx.globalAlpha = 1.0;
+    ctx.globalCompositeOperation = "source-over";
+    ctx.strokeStyle = selectedColor;
+    ctx.lineWidth = penWidth;
+}
+
 
 penSlide.addEventListener("input", () => {
     penWidth = penSlide.value;
@@ -221,6 +234,9 @@ penButton.addEventListener("click", () =>{
     isDrawing = false;
     selectedTool = "pen";
     ctx.globalCompositeOperation = "source-over";
+    ctx.globalAlpha = 1.0;
+    ctx.strokeStyle = selectedColor;
+    ctx.lineWidth = penWidth;
 });
 
 canvas.addEventListener("mousedown", (e) => {
@@ -233,3 +249,17 @@ canvas.addEventListener("mouseup", () =>{
     isDrawing = false;
     ctx.closePath();
 });
+
+const penWidthSlider = document.getElementById("pen-width");
+
+function updateSliderBackground(slider) {
+  const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+  slider.style.background = `linear-gradient(to right, black ${val}%, #ddd ${val}%)`;
+}
+
+penWidthSlider.addEventListener("input", function () {
+  updateSliderBackground(this);
+});
+
+// Call once to set initial background
+updateSliderBackground(penWidthSlider);

@@ -154,7 +154,7 @@ body{
 	-webkit-appearance: none;
 	appearance: none;
 	height: 8px;
-	background: #ddd;
+	background: linear-gradient(to right, black 0%, #ddd 0%);
 	border-radius: 5px;
 	outline: none;
 	transition: background 0.3s ease;
@@ -540,15 +540,15 @@ body.dark-mode #whiteboard-header {
 
 .iit-p {
 	position: absolute;
-	top: 10px;
-	left: 10px;
+	top: 0;
+	left: 0;
 	background: transparent;
 	border-radius: 50%;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	cursor: grab;
 	user-select: none;
-	width: 100px;
-	height: 100px;
+	width: 120px;
+	height: 120px;
 	display: flex;
 	align-items: center;
 	justify-content: center;

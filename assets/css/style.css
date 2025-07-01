@@ -154,7 +154,7 @@ body{
 	-webkit-appearance: none;
 	appearance: none;
 	height: 8px;
-	background: #DDD;
+	background: #ddd;
 	border-radius: 5px;
 	outline: none;
 	transition: background 0.3s ease;
@@ -165,7 +165,7 @@ body{
 	appearance: none;
 	width: 20px;
 	height: 20px;
-	background: var(--text-color-1);
+	background: black;
 	border-radius: 50%;
 	cursor: pointer;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -330,15 +330,15 @@ body{
 
 .camera-control{
 	position: absolute;
-	bottom: 10px;
-	right: 10px;
+	top: 100px;
+	left: 0px;
 	background: transparent;
 	border-radius: 50%;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	cursor: grab;
 	user-select: none;
-	width: 150px;
-	height: 150px;
+	width: 100px;
+	height: 100px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -536,4 +536,27 @@ body.dark-mode #whiteboard-header {
     background-color: #1f1f1f;
     color: #ffffff;
     border-bottom: 1px solid #444;
+}
+
+.iit-p {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background: transparent;
+	border-radius: 50%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	cursor: grab;
+	user-select: none;
+	width: 100px;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1100;
+}
+
+
+.iit-p img {
+    width: 100px; /* ensures image scales with container */
+    height: 100px;
 }

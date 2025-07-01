@@ -330,7 +330,7 @@ body{
 
 .camera-control{
 	position: absolute;
-	top: 100px;
+	top: 120px;
 	left: 0px;
 	background: transparent;
 	border-radius: 50%;
@@ -540,8 +540,8 @@ body.dark-mode #whiteboard-header {
 
 .iit-p {
 	position: absolute;
-	top: 0px;
-	left: 0px;
+	top: 10px;
+	left: 10px;
 	background: transparent;
 	border-radius: 50%;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -557,6 +557,6 @@ body.dark-mode #whiteboard-header {
 
 
 .iit-p img {
-    width: 100px; /* ensures image scales with container */
-    height: 100px;
+    width: 120px; /* ensures image scales with container */
+    height: 120px;
 }
